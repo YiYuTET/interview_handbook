@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  base: "",
+  base: "/interview_handbook/",
   title: "HarmonyOS",
   description: "鸿蒙应用 面试手册 开发文档",
   head: [["link", { rel: "icon", href: "/logo.png" }]],
