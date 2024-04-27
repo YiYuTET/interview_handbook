@@ -1,9 +1,3 @@
-<!--
-::: code-group
-```ts :line-numbers [common/utils/Logger.ts]
-```
-:::
--->
 
 # 面试手册APP-通用模块
 

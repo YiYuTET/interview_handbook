@@ -1,11 +1,4 @@
-<!--
-::: code-group
 
-```ts :line-numbers [common/utils/Logger.ts]
-
-```
-:::
--->
 
 # 面试手册APP- 我的模块
 
@@ -14,6 +7,7 @@
 ### 1. 我的-页面结构
 
 ::: code-group
+
 ```ts :line-numbers [views/Index/Mine.ets]
 import { IvClock } from '../../common/components/IvClock'
 import { vp2vp } from '../../common/utils/Basic'
