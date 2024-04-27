@@ -15,7 +15,7 @@ export default defineConfig({
 	outline: [2, 6],
 	
     nav: [
-	  { text: '项目文档', link: '/project/index' },
+	  { text: '项目文档', link: '/project/introduce' },
 	  { text: 'HarmonyOS文档', link: 'https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V2/development-intro-0000001478061813-V2' },
       { text: '关于我', link: 'https://yiyuyyds.cn' },
     ],
@@ -24,10 +24,14 @@ export default defineConfig({
       {
         text: '面试手册 开发文档',
         items: [
-          { text: '面试手册APP-项目介绍', link: '/project/index' },
+          { text: '面试手册APP-项目介绍', link: '/project/introduce' },
+		  
 		  { text: '面试手册APP-通用模块', link: '/project/common' },
+		  
           { text: '面试手册APP-首页模块', link: '/project/home' },
+		  
 		  { text: '面试手册APP-我的模块', link: '/project/mine' },
+		  
         ]
       }
     ],
