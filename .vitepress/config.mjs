@@ -5,7 +5,7 @@ export default defineConfig({
   base: "/interview_handbook/",
   title: "HarmonyOS",
   description: "鸿蒙应用 面试手册 开发文档",
-  head: [["link", { rel: "icon", href: "/logo.png" }]],
+  head: [["link", { rel: "icon", href: "logo.png" }]],
   
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
@@ -17,7 +17,7 @@ export default defineConfig({
     nav: [
 	  { text: '项目文档', link: '/project/index' },
 	  { text: 'HarmonyOS文档', link: 'https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V2/development-intro-0000001478061813-V2' },
-      { text: '关于我', link: 'https://github.com/YiYuTET' },
+      { text: '关于我', link: 'https://yiyuyyds.cn' },
     ],
 
     sidebar: [
