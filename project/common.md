@@ -67,6 +67,7 @@ export class Logger {
 :::
 
 2）修改 entryAbility 的日志打印
+
 ::: code-group
 ```ts :line-numbers [entryAbility.ts]
 import UIAbility from '@ohos.app.ability.UIAbility';
