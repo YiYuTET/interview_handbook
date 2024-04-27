@@ -12,7 +12,7 @@ hero:
   actions:
     - theme: brand
       text: 快速上手 →
-      link: /project/index
+      link: /project/introduce
     - theme: alt
       text: GitHub
       link: https://github.com/YiYuTET/interview-handbook-project/tree/main
