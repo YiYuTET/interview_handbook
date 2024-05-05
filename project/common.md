@@ -5,18 +5,14 @@
 
 ```
 ets 
-├── common                 	    // - 通用模块
 │  ├── components               // - 通用组件 
 │  ├── constants                // - 常量数据 
-│  ├── images                   // - 图片资源 
 │  └── utils              		// - 工具类 
 ├── entryability                // - 入口UIAbility 
 │   └── EntryAbility.ts 
-├── models                      // - 数据模型 
+├── models                      // - 数据对象模型 
 ├── pages                       // - 页面组件 
 │   └── Index.ets 
-└── views                       // - 页面对应自定义组件    
-	└── Index
 ```
 
 ## 基础能力
@@ -81,7 +77,7 @@ export default class EntryAbility extends UIAbility {
     // Main window is created, set main page for this ability
     Logger.info('Ability onWindowStageCreate')
 
-    windowStage.loadContent('pages/Index', (err, data) => {
+    windowStage.loadContent('pages/WelcomePage', (err, data) => {
       if (err.code) {
         Logger.info('Failed to load the content', JSON.stringify(err) ?? '')
         return;
@@ -111,22 +107,22 @@ export default class EntryAbility extends UIAbility {
 ### 2.访问权限工具类
 1）用户信息持久化，获取用户，设置用户，删除用户以及用户访问页面控制
 ::: code-group
-```ts :line-numbers [models/UserModel.ts]
-export class UserModel {
-  id: string
-  username: string
-  avatar: string
-  refreshToken: string
-  token: string
-  totalTime?: number
-  nickName?: string
-  clockinNumbers?: number
+```ts :line-numbers [models/Index.ets]
+export class UserInfo {
+  public token: string
+  public refreshToken: string
+  public id: string
+  public username: string
+  public avatar: string
+  public nickName?: string
+  public totalTime?: number
+  public shareInfo: string
 }
 ```
 :::
 
 ::: code-group
-```ts :line-numbers [common/utils/Auth.ts]
+```ts :line-numbers [utils/Auth.ts]
 import router from '@ohos.router'
 import { UserModel } from '../../models/User'
 
@@ -184,7 +180,7 @@ Auth.initLocalUser()
 - 提供快捷调用静态方法
 
 ::: code-group
-```ts :line-numbers [common/utils/Request.ts]
+```ts :line-numbers [utils/request.ts]
 import http from '@ohos.net.http'
 import { Auth } from './Auth'
 
@@ -251,7 +247,7 @@ export class Request {
 - 添加日志行为
 
 ::: code-group
-```ts :line-numbers [common/utils/Request.ts]
+```ts :line-numbers [utils/request.ts]
 return req.request(fullUrl, options)
     .then(res => {
       if (res.result) {
@@ -418,7 +414,7 @@ const useSize =  deviceWidth / designWidth * measureSize
 - 封装等比例缩放函数
 
 ::: code-group
-```ts :line-numbers [common/utils/Basic.ets]
+```ts :line-numbers [utils/base.ets]
 import display from '@ohos.display'
 import deviceInfo from '@ohos.deviceInfo'
 
@@ -550,9 +546,9 @@ export const vp2vp = (originSize: number) => {
 1）准备组件
 
 ::: code-group
-```ts :line-numbers [views/Index/Home.ets]
+```ts :line-numbers [pages/HomePage.ets]
 @Component
-export struct Home {
+export struct HomePage {
   build() {
     Column(){
       Text('首页')
@@ -565,9 +561,9 @@ export struct Home {
 :::
 
 ::: code-group
-```ts :line-numbers [views/Index/Project.ets]
+```ts :line-numbers [pages/ProjectPage.ets]
 @Component
-export struct Project {
+export struct ProjectPage {
   build() {
     Column(){
       Text('项目')
@@ -580,9 +576,9 @@ export struct Project {
 :::
 
 ::: code-group
-```ts :line-numbers [views/Index/Interview.ets]
+```ts :line-numbers [pages/InterviewPage.ets]
 @Component
-export struct Interview {
+export struct InterviewPage {
   build() {
     Column(){
       Text('面经')
@@ -595,9 +591,9 @@ export struct Interview {
 :::
 
 ::: code-group
-```ts :line-numbers [views/Index/Mine.ets]
+```ts :line-numbers [pages/MinePage.ets]
 @Component
-export struct Mine {
+export struct MinePage {
   build() {
     Column(){
       Text('我的')
@@ -613,20 +609,31 @@ export struct Mine {
 
 ::: code-group
 ```ts :line-numbers [pages/Index.ets]
-import { Home } from '../views/Index/Home'
-import { Project } from '../views/Index/Project'
-import { Interview } from '../views/Index/Interview'
-import { Mine } from '../views/Index/Mine'
+import { HomePage } from './HomePage'
+import { ProjectPage } from './ProjectPage'
+import { MinePage } from './MinePage'
+import { InterviewPage } from './InterviewPage'
 
-// ...
+Tabs({
+      barPosition: this.isLandscape ? BarPosition.Start : BarPosition.End,
+      index: this.activeIndex
+    }) {
+      TabContent() {
+        HomePage()
+      }.tabBar(this.TabBarBuilder('首页', 0, $r('app.media.home'), $r('app.media.home_select')))
 
-        TabContent() {
-          if (index === 0) Home()
-          else if (index === 1) Project()
-          else if (index === 2) Interview()
-          else Mine()
-        }
-        .tabBar(this.TabBarBuilder(item, index))
+      TabContent() {
+        ProjectPage()
+      }.tabBar(this.TabBarBuilder('项目', 1, $r('app.media.project'), $r('app.media.project_select')))
+
+      TabContent() {
+        InterviewPage()
+      }.tabBar(this.TabBarBuilder('面经', 2, $r('app.media.interview'), $r('app.media.interview_select')))
+
+      TabContent() {
+        MinePage()
+      }.tabBar(this.TabBarBuilder('我的', 3, $r('app.media.mine'), $r('app.media.mine_select')))
+}
 ```
 :::
 
@@ -638,32 +645,38 @@ import { Mine } from '../views/Index/Mine'
 
 1）搜索框组件
 ::: code-group
-```ts :line-numbers [common/components/IvSearch.ets]
-import { vp2vp } from '../utils/Basic'
+```ts :line-numbers [components/SearchWrapper.ets]
+import { vp2vp } from '../utils/base'
+class SearchWrapperOptions {
+  align: FlexAlign = FlexAlign.Start
+  bg: string = '#f5f5f5'
+  textColor: string = '#979797'
+}
 
+@Preview
 @Component
-export struct IvSearch {
-
-  textAlign: FlexAlign = FlexAlign.Start
+export default struct SearchWrapper {
+  alignValue: FlexAlign = FlexAlign.Start
+  bg: string = '#f5f5f5'
+  // textColor: string = '#979797'
+  textColor: string = '#000000'
 
   build() {
     Row() {
-      Image($r('app.media.icon_public_search'))
-        .width(vp2vp(15))
-        .aspectRatio(1)
-        .fillColor($r('app.color.gray'))
-
-      Text('请输入关键词')
-        .fontSize(vp2vp(14))
-        .fontColor($r('app.color.gray'))
-        .margin({ left: vp2vp(3) })
+      Image($r("app.media.icon_public_search"))
+        .size({ width: vp2vp(16), height: vp2vp(16) })
+        .margin({ left: vp2vp(8), right: vp2vp(6), bottom: vp2vp(1) })
+        .fillColor(this.textColor)
+      TextInput({ placeholder: '请输入关键字'})
+        .fontColor(this.textColor)
+        .fontSize(vp2vp(18))
+        .backgroundColor(this.bg)
     }
-    .layoutWeight(1)
-    .height(vp2vp(28))
-    .backgroundColor($r('app.color.gray_bg'))
-    .borderRadius(vp2vp(14))
-    .padding({ left: vp2vp(10), right: vp2vp(10) })
-    .justifyContent(this.textAlign)
+    .backgroundColor(this.bg)
+    .height(vp2vp(32))
+    .borderRadius(vp2vp(16))
+    .width('100%')
+    .justifyContent(this.alignValue)
   }
 }
 ```
@@ -672,7 +685,7 @@ export struct IvSearch {
 2）打卡组件
 
 ::: code-group
-```ts :line-numbers [common/components/IvClock.ets]
+```ts :line-numbers [components/ClockIn.ets]
 import { vp2vp } from '../utils/Basic'
 
 @Component
@@ -715,21 +728,21 @@ export struct IvClock {
 :::
 
 ::: code-group
-```ts :line-numbers [views/Index/Home.ets]
-import { IvClock } from '../../common/components/IvClock'
-import { IvSearch } from '../../common/components/IvSearch'
+```ts :line-numbers [pages/HomePage.ets]
+import { ClockIn } from '../components/ClockIn'
+import SearchWrapper from '../components/SearchWrapper'
 
 @Component
-export struct Home {
+export struct HomePage {
   build() {
     Column() {
-      Row({ space: 15 }) {
-        IvSearch()
-        IvClock()
-      }
-      .padding(15)
+        Row() {
+          SearchWrapper()
+        }
+        .layoutWeight(1)
+        .margin({ right: vp2vp(5) })
 
-      Text('首页')
+        ClockIn()
     }
     .width('100%')
     .height('100%')
@@ -756,30 +769,25 @@ colors: Array<[ResourceColor, number]>,
 - 组件结构
 
 ::: code-group
-```ts :line-numbers [common/components/IvSkeleton.ets]
-import { vp2vp } from '../utils/Basic'
-
+```ts :line-numbers [components/Skeleton.ets]
+@Preview
 @Component
-export struct IvSkeleton {
-  widthValue: number | string = 100
-  heightValue: number | string = 20
+export struct Skeleton {
+  w: number | string = 100
+  h: number | string = 20
   @State
   translateValue: string = '-100%'
 
   build() {
     Stack() {
       Text()
-        .backgroundColor($r('app.color.gray_bg'))
+        .backgroundColor($r('app.color.ih_bg_color'))
         .height('100%')
         .width('100%')
       Text()
         .linearGradient({
-          angle: 90,
-          colors: [
-            ['rgba(255,255,255,0)', 0],
-            ['rgba(255,255,255,0.5)', 0.5],
-            ['rgba(255,255,255,0)', 1]
-          ]
+          angle: 135,
+          colors: [['rgba(255,255,255,0)', 0], ['rgba(255,255,255,0.5)', 0.5], ['rgba(255,255,255,0)', 1]]
         })
         .height('100%')
         .width('100%')
@@ -791,12 +799,12 @@ export struct IvSkeleton {
           iterations: -1
         })
     }
-    .height(this.heightValue)
-    .width(this.widthValue)
-    .borderRadius(vp2vp(4))
+    .height(this.h)
+    .width(this.w)
+    .borderRadius(4)
     .clip(true)
     .onAppear(() => {
-      this.translateValue = '100%'
+      this.translateValue = '120%'
     })
   }
 }

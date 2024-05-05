@@ -1,6 +1,10 @@
 
 
-# 面试手册APP- 我的模块
+# 面试手册APP-我的模块
+
+该模块涉及的页面及组件：ClockIn.ets、ProfileEditPage.ets、LoginPage.ets、StudyTimePage.ets
+
+
 
 ## 个人中心
 
@@ -8,13 +12,13 @@
 
 ::: code-group
 
-```ts :line-numbers [views/Index/Mine.ets]
-import { IvClock } from '../../common/components/IvClock'
-import { vp2vp } from '../../common/utils/Basic'
+```ts :line-numbers [pages/MinePage.ets]
+import { ClockIn } from '../../components/ClockIn'
+import { vp2vp } from '../../utils/base'
 
 @Preview
 @Component
-export struct Mine {
+export struct MinePage {
   @Builder
   NavBuilder(icon: Resource, title: string,) {
     Column({ space: vp2vp(8) }) {
@@ -183,7 +187,7 @@ Auth.initLocalUser()
 2）获取 AppStorage 用户数据
 
 ::: code-group
-```ts :line-numbers [views/Index/Mine.ets]
+```ts :line-numbers [pages/MinePage.ets]
 @StorageProp(USER_KEY)
   @Watch('updateUser')
   userJson: string = '{}'
@@ -200,7 +204,7 @@ Auth.initLocalUser()
 3）进行展示
 
 ::: code-group
-```ts :line-numbers [views/Index/Mine.ets]
+```ts :line-numbers [pages/MinePage.ets]
 // 头部
       Row() {
         Image(this.user.avatar || '/common/images/avatar.png')
@@ -245,7 +249,7 @@ Auth.initLocalUser()
 :::
 
 ::: code-group
-```ts :line-numbers [views/Index/Mine.ets]
+```ts :line-numbers [pages/MinePage.ets]
 Column() {
     this.NavBuilder($r('app.media.icon_my_time'), '累计学时')
     Row() {
@@ -263,7 +267,7 @@ Column() {
 :::
 
 ::: code-group
-```ts :line-numbers [views/Index/Mine.ets]
+```ts :line-numbers [pages/MinePage.ets]
 if (this.user.token) {
     this.CellBuilder('退出登录')
 }
@@ -273,7 +277,7 @@ if (this.user.token) {
 4）Basic 封装时间转换函数
 
 ::: code-group
-```ts :line-numbers [common/utils/Basic.ets]
+```ts :line-numbers [utils/base.ets]
 export const formatTime = (time: number = 0, hasUnit: boolean = true) => {
   if (time < 3600) {
     return String(Math.floor(time / 60)) + (hasUnit ? ' 分钟' : '')
@@ -285,7 +289,7 @@ export const formatTime = (time: number = 0, hasUnit: boolean = true) => {
 :::
 
 ::: code-group
-```ts :line-numbers [views/Index/Mine.ets]
+```ts :line-numbers [pages/MinePage.ets]
 Text(formatTime(this.user.totalTime))
                 .fontColor('#C3C3C5')
                 .fontSize(vp2vp(11))
@@ -296,7 +300,7 @@ Text(formatTime(this.user.totalTime))
 
 ::: code-group
 ```ts :line-numbers [pages/LoginPage.ets]
-import { vp2vp } from '../common/utils/Basic'
+import { vp2vp } from '../utils/base'
 
 @Extend(TextInput) function customStyle() {
   .height(vp2vp(44))
@@ -492,7 +496,7 @@ login() {
 
 ::: code-group
 
-```ts :line-numbers [pages/Mine.ets]
+```ts :line-numbers [pages/MinePage.ets]
 if (this.user.token) {
   this.CellBuilder('退出登录', async () => {
     const ok = await promptAction.showDialog({
@@ -531,7 +535,7 @@ interface InnerEvent {
 
 ::: code-group
 
-```ts :line-numbers [views/Index/Home.ets]
+```ts :line-numbers [pages/HomePage.ets]
 aboutToAppear() {
   this.getQuestionTypeList()
 
@@ -555,7 +559,7 @@ emitter.emit(LOGIN_EVENT)
 
 ::: code-group
 
-```ts :line-numbers [views/Index/Mine.ets]
+```ts :line-numbers [pages/MinePage.ets]
 if (ok.index === 1) {
   Auth.delUser()
   // 通知 Home 更新页面
@@ -573,7 +577,7 @@ if (ok.index === 1) {
 
 ::: code-group
 
-```ts :line-numbers [views/Index/Home.ets]
+```ts :line-numbers [pages/HomePage.ets]
 @StorageProp(USER_KEY)
   @Watch('updateUser')
   userJson: string = '{}'
@@ -588,7 +592,7 @@ if (ok.index === 1) {
 
 ::: code-group
 
-```ts :line-numbers [views/Index/Home.ets]
+```ts :line-numbers [pages/HomePage.ets]
 Row({ space: vp2vp(10) }) {
         IvSearch()
 +        IvClock({ clockCount: this.user.clockinNumbers || 0 })
@@ -600,7 +604,7 @@ Row({ space: vp2vp(10) }) {
 
 ::: code-group
 
-```ts :line-numbers [common/components/IvClock.ets]
+```ts :line-numbers [components/ClockIn.ets]
 .onClick(() => {
   const user = Auth.getUser()
   if (user.token) {
@@ -625,7 +629,7 @@ Row({ space: vp2vp(10) }) {
 
 ::: code-group
 
-```ts :line-numbers [views/Index/Mine.ets]
+```ts :line-numbers [pages/MinePage.ets]
 // 获取用户信息
 aboutToAppear(){
   if (this.user.token) {
@@ -644,7 +648,7 @@ aboutToAppear(){
 ::: code-group
 
 ```ts :line-numbers [pages/ClockPage.ets]
-import { vp2vp } from '../common/utils/Basic'
+import { vp2vp } from '../utils/base'
 
 @Entry
 @Component
@@ -1074,7 +1078,7 @@ MiniCalendar({
 
 ::: code-group
 
-```ts :line-numbers [views/Index/Mine.ets]
+```ts :line-numbers [pages/MinePage.ets]
 Row() {
               Text('编辑资料')
                 .fontSize(vp2vp(12))
@@ -1094,7 +1098,7 @@ Row() {
 
 ::: code-group
 
-```ts :line-numbers [pages/ProfilePage.ets]
+```ts :line-numbers [pages/ProfileEditPage.ets]
 import { USER_KEY } from '../common/utils/Auth'
 import { vp2vp } from '../common/utils/Basic'
 import { UserModel } from '../models/UserModel'
@@ -1195,8 +1199,8 @@ updateNickName() {
 
 ::: code-group
 
-```ts :line-numbers [common/components/IvLoadingDialog.ets]
-import { vp2vp } from '../utils/Basic'
+```ts :line-numbers [components/LoadingDialog.ets]
+import { vp2vp } from '../utils/base'
 
 @CustomDialog
 export struct IvLoadingDialog {
@@ -1229,7 +1233,7 @@ export struct IvLoadingDialog {
 
 ::: code-group
 
-```ts :line-numbers [pages/ProfilePage.ets]
+```ts :line-numbers [pages/ProfileEditPage.ets]
 dialog: CustomDialogController = new CustomDialogController({
     builder: IvLoadingDialog({ message: '更新中...' }),
     customStyle: true,
@@ -1254,7 +1258,7 @@ dialog: CustomDialogController = new CustomDialogController({
 
 ::: code-group
 
-```ts :line-numbers [pages/ProfilePage.ets]
+```ts :line-numbers [pages/ProfileEditPage.ets]
 URI: string = null
 
 pickerAvatar() {
@@ -1276,7 +1280,7 @@ pickerAvatar() {
 
 ::: code-group
 
-```ts :line-numbers [pages/ProfilePage.ets]
+```ts :line-numbers [pages/ProfileEditPage.ets]
 uploadAvatar() {
   this.dialog.open()
 
@@ -1319,7 +1323,7 @@ uploadAvatar() {
 
 ::: code-group
 
-```ts :line-numbers [pages/ProfilePage.ets]
+```ts :line-numbers [pages/ProfileEditPage.ets]
 getUserInfo () {
   Request.get<{ avatar: string }>('userInfo').then(res => {
     this.user.avatar = res.data.avatar
