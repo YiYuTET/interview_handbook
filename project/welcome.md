@@ -1,5 +1,11 @@
 # 面试手册APP-开屏页面
 
+
+
+开屏页面中心出现logo和应用名，右上角出现加载进度条，3秒后进入首页。
+
+
+
 ::: code-group
 ```ts :line-numbers [pages/WelcomePage.ets]
 import router from '@ohos.router'

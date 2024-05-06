@@ -451,6 +451,32 @@ Button({ type: ButtonType.Normal }) {
 
 2）实现登录，非空校验、登录跳转
 
+此处post请求的URL为 https://api-harmony-teach.itheima.net/hm/login ，请求体中username=hmheima，password=Hmheima%123
+
+返回结果为
+::: code-group
+```js :line-numbers 
+{
+    "success": true,
+    "code": 10000,
+    "message": "success",
+    "data": {
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJpYXQiOjE3MTQ5OTk1MzUsImV4cCI6MTcxNTAwMzEzNX0.g1NXsfmD0wOlJoREXLJsnZt7TVzSLx6owzwsHvdK2Vo",
+        "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJpYXQiOjE3MTQ5OTk1MzUsImV4cCI6MTcxNTI1ODczNX0.zywVJno5UNzq0JkLEkFBDnM9_jY4TprIcoMxkURzV1Q",
+        "id": "1",
+        "username": "hmheima",
+        "avatar": "https://yjy-teach-oss.oss-cn-beijing.aliyuncs.com/teach/avatar/unittest/20240506/50525210318737408.jpg",
+        "nickName": "小菜鸡",
+        "totalTime": 45133,
+        "shareInfo": "b4e3722a4734aa445ce5e189375d37c9",
+        "clockinNumbers": 31
+    }
+}
+```
+:::
+
+请求成功后会把token放在AppStore全局状态存储中
+
 ::: code-group
 ```ts :line-numbers [pages/LoginPage.ets]
 login() {
@@ -469,7 +495,7 @@ login() {
     username: this.username,
     password: this.password
   }).then(res => {
-    Auth.setUser(res.data)
+    AppStorage.Set('user', JSON.stringify(res.data))
 
     const params = router.getParams()
     if (params && params['return_url']) {
@@ -494,6 +520,8 @@ login() {
 
 1）退出登录
 
+退出后会把AppStore全局状态存储中的user设为空
+
 ::: code-group
 
 ```ts :line-numbers [pages/MinePage.ets]
@@ -508,7 +536,7 @@ if (this.user.token) {
       ]
     })
     if (ok.index === 1) {
-      Auth.delUser()
+      AppStorage.Set('user', '{}')
     }
   })
 }
@@ -561,7 +589,7 @@ emitter.emit(LOGIN_EVENT)
 
 ```ts :line-numbers [pages/MinePage.ets]
 if (ok.index === 1) {
-  Auth.delUser()
+  AppStorage.Set('user', '{}')
   // 通知 Home 更新页面
   emitter.emit(LOGIN_EVENT)
 }
@@ -594,8 +622,8 @@ if (ok.index === 1) {
 
 ```ts :line-numbers [pages/HomePage.ets]
 Row({ space: vp2vp(10) }) {
-        IvSearch()
-+        IvClock({ clockCount: this.user.clockinNumbers || 0 })
+        Search()
++        Clock({ clockCount: this.user.clockinNumbers || 0 })
       }
 ```
 :::
@@ -774,6 +802,7 @@ export const vp2vp = (originSize: number) => {
 import dayjs from 'dayjs'
 import { vp2vp } from '../utils'
 
+//base64加密
 const img = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEQAAABECAYAAAA4E5OyAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAF5SURBVHgB7drLUcMwFIXhGzvOMKwoJXSAO0gJ0BkdECoQJaQT2II1MTo8NiZsmLm6R+R8mzjJIuN/Yo0tyUxERERERERE/rmVOUopXa3Xm4dyeFN+ap/z6904ji9GrDNHfT/s7CMGzLsSJyGSEXMNMs+2PPktexTXIMfjdF9eDouPqaO4jiHwNY6kcrhdfHXI+W1kG1Pcg0BLUaoEgVaiVAsCLUSpGgTYo1QPAsxRQoIAa5SwIMAYJTQIsEUJDwJMUSiCAEsUmiDAEIUqCERHoQsCkVFcH///CieME7cTUwddN9yaI8og31Yn/r993z+bI8oguGSGYZPKjNuPS2aaLh7NEeWg+luMnC/L1XR9PoNqdAygujGLjgE0t+4MMYDi4Y4lBoQ//jPFgNAJIrYYEDaFyBgDQiaZWWNA9WUI5hhQdaGKPQZUW8psIQZUWexuJQa47yBqKQa47yBqKQbU3kFEHQNq7CDaf76bn9hjiIiIiIiIiMhZeAeOPE1Nm7TnTQAAAABJRU5ErkJggg=='
 
 class DayItem {

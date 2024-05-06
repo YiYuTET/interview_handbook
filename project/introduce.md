@@ -4,6 +4,30 @@
 
 面试APP提供了多种题目和内容，包括基础知识点问题、原理问题、项目问题等，满足不同前端程序员的需求。同时，面试通APP还包含各大公司的真实面试经验，便于用户找到心仪公司的面经。面试通APP支持用户自主选择学习内容，同时还提供了智能推荐和反馈机制，帮助用户更好地掌握知识和技能。
 
+
+
+
+
+<div class="half">
+    <img src="./../public/02.77120fbc.png" width="45%" style="float:left;margin-right:30px"/>
+    <img src="./../public/03.699a793a.png" width="45%" style="float:left"/>
+</div>       
+<p style="clear:both"></p>
+
+
+
+<div class="half">
+    <img src="./../public/04.3f354244.png" width="45%" style="float:left;margin-right:30px"/>
+    <img src="./../public/05.78963211.png" width="45%" style="float:left"/>
+</div>       
+<p style="clear:both"></p>
+
+<div class="half">
+    <img src="./../public/06.a586323e.png" width="45%" style="float:left;margin-right:30px"/>
+    <img src="./../public/07.e23c8b96.png" width="45%" style="float:left"/>
+</div>       
+<p style="clear:both"></p>
+
 ## 核心功能
 
 - 刷题系统：题库频道、面试题长列表、点赞、收藏、分享、富文本预览

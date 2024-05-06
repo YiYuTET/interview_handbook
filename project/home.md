@@ -121,6 +121,87 @@ export class QuestionType {
 
 2）获取数据
 
+此处get请求的URL为https://api-harmony-teach.itheima.net/hm/question/type
+
+返回结果为
+
+::: code-group
+``` js:line-numbers 
+{
+  "success": true,
+  "code": 10000,
+  "message": "success",
+  "data": [
+    {
+      "id": 21,
+      "name": "JavaScript",
+      "displayNewestFlag": 0
+    },
+    {
+      "id": 18,
+      "name": "HTML5",
+      "displayNewestFlag": 0
+    },
+    {
+      "id": 26,
+      "name": "Vue",
+      "displayNewestFlag": 0
+    },
+    {
+      "id": 19,
+      "name": "CSS3",
+      "displayNewestFlag": 0
+    },
+    {
+      "id": 20,
+      "name": "移动端布局",
+      "displayNewestFlag": 1
+    },
+    {
+      "id": 22,
+      "name": "jQuery",
+      "displayNewestFlag": 0
+    },
+    {
+      "id": 23,
+      "name": "AJAX",
+      "displayNewestFlag": 0
+    },
+    {
+      "id": 25,
+      "name": "Node",
+      "displayNewestFlag": 0
+    },
+    {
+      "id": 27,
+      "name": "React",
+      "displayNewestFlag": 0
+    },
+    {
+      "id": 28,
+      "name": "小程序",
+      "displayNewestFlag": 0
+    },
+    {
+      "id": 304,
+      "name": "其它",
+      "displayNewestFlag": 0
+    },
+    {
+      "id": 399,
+      "name": "性能优化",
+      "displayNewestFlag": 1
+    },
+    {
+      "id": 398,
+      "name": "兼容性问题",
+      "displayNewestFlag": 1
+    }
+  ]
+}
+```
+:::
+
 ::: code-group
 ```ts :line-numbers 
 @State
@@ -321,7 +402,63 @@ export class QuestionItem {
 ```
 :::
 
+
+
 2）问题列表组件加载数据
+
+此处get请求的URL为https://api-harmony-teach.itheima.net/hm/question/list?questionBankType=10
+
+返回结果为
+
+::: code-group
+```js :line-numbers 
+{
+  "success": true,
+  "code": 10000,
+  "message": "success",
+  "data": {
+    "total": 1352,
+    "pageTotal": 136,
+    "rows": [
+      {
+        "id": "29440",
+        "questionNo": "ZT014515",
+        "stem": "HTML5新增的特性都有哪些?\n",
+        "content": "",
+        "subjectName": "前端与移动开发",
+        "questionType": 5,
+        "difficulty": 3,
+        "views": 2705,
+        "likeCount": 22,
+        "questionBankType": 10,
+        "creatorName": "3813",
+        "creatorAvatar": "http://teachoss.itheima.net/heimaQuestionMiniapp/%E5%AE%98%E6%96%B9%E9%BB%98%E8%AE%A4%E5%A4%B4%E5%83%8F%402x.png",
+        "createdAt": "2021-06-02",
+        "likeFlag": 0,
+        "readFlag": 0
+      },
+      {
+        "id": "38212",
+        "questionNo": "ZT024215",
+        "stem": "?? 符号用过吗？请简述一下他的使用场景\n",
+        "content": "",
+        "subjectName": "前端与移动开发",
+        "questionType": 5,
+        "difficulty": 4,
+        "views": 2242,
+        "likeCount": 16,
+        "questionBankType": 10,
+        "creatorName": "294",
+        "creatorAvatar": "http://teachoss.itheima.net/heimaQuestionMiniapp/%E5%AE%98%E6%96%B9%E9%BB%98%E8%AE%A4%E5%A4%B4%E5%83%8F%402x.png",
+        "createdAt": "2021-10-26",
+        "likeFlag": 0,
+        "readFlag": 0
+      },
+    ]
+  }
+}
+```
+:::
 
 ::: code-group
 ```ts :line-numbers [components/QuestionList.ets]
