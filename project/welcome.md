@@ -6,6 +6,13 @@
 
 
 
+<center class="half">
+    <img src="./../public/91E267509F96472DD321B527A2AA3037.png" width="50%"/>
+</center>       
+<p style="clear:both"></p>
+
+
+
 ::: code-group
 ```ts :line-numbers [pages/WelcomePage.ets]
 import router from '@ohos.router'

@@ -5,6 +5,13 @@
 
 该模块涉及的页面及组件：HomePage.ets、SearchWrapper.ets、ClockIn.ets、Skeleton.ets、QuestionList.ets
 
+
+<center class="half">
+    <img src="./../public/03.699a793a.png" width="50%"/>
+</center>       
+<p style="clear:both"></p>
+
+
 ### 1.静态结构
 
 1）轮播图

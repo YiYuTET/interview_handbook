@@ -38,6 +38,8 @@ export default defineConfig({
 		  
 		  { text: '面试手册APP-我的模块', link: '/project/mine' },
 		  
+		  { text: '面试手册APP-收藏点赞页面', link: '/project/favoriteandlikes' },
+		  
         ]
       }
     ],

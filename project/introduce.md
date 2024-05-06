@@ -6,8 +6,6 @@
 
 
 
-
-
 <div class="half">
     <img src="./../public/02.77120fbc.png" width="45%" style="float:left;margin-right:30px"/>
     <img src="./../public/03.699a793a.png" width="45%" style="float:left"/>

@@ -2,6 +2,15 @@
 
 该模块涉及的页面及组件：ProjectPage.ets、ProjectListPage.ets、QuestionList.ets
 
+
+<div class="half">
+    <img src="./../public/9A7E32B93B5EE3E86E30BC6FFFB0D704.png" width="45%" style="float:left;margin-right:30px"/>
+    <img src="./../public/6C243D6139F2455213D2A57AB5C8AF9C.png" width="45%" style="float:left"/>
+</div>       
+<p style="clear:both"></p>
+
+
+
 ::: code-group
 ```ts :line-numbers [pages/ProjectPage.ets]
 import router from '../utils/router'
@@ -86,7 +95,6 @@ export struct ProjectPage {
   }
 }
 ```
-```
 :::
 
 
@@ -157,6 +165,5 @@ struct ProjectListPage {
     .titleMode(NavigationTitleMode.Mini)
   }
 }
-```
 ```
 :::

@@ -4,6 +4,14 @@
 
 
 
+<div class="half">
+    <img src="./../public/23978CEF90CED1265E3B129BEBD75CBE.png" width="45%" style="float:left;margin-right:30px"/>
+    <img src="./../public/254AA501F11CCB50CB036A08877E81A9.png" width="45%" style="float:left"/>
+</div>       
+<p style="clear:both"></p>
+
+
+
 ::: code-group
 ```ts :line-numbers [pages/InterviewPage.ets]
 import router from '../utils/router'
@@ -229,7 +237,6 @@ export struct InterviewPage {
   }
 }
 ```
-```
 :::
 
 
@@ -302,6 +309,5 @@ struct InterviewDetailPage {
     }.title('面经详情').titleMode(NavigationTitleMode.Mini).mode(NavigationMode.Stack)
   }
 }
-```
 ```
 :::

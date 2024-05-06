@@ -5,6 +5,12 @@
 该模块涉及的页面及组件：ClockIn.ets、ProfileEditPage.ets、LoginPage.ets、StudyTimePage.ets
 
 
+<center class="half">
+    <img src="./../public/04.3f354244.png" width="50%"/>
+</center>       
+<p style="clear:both"></p>
+
+
 
 ## 个人中心
 
