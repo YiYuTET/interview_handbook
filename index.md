@@ -3,9 +3,9 @@
 layout: home
 
 hero:
-  name: "鸿蒙应用-面试手册"
+  name: "鸿蒙应用-面试宝典"
   text: "开发文档"
-  tagline: 基于 HarmonyOS 4.0 的面试手册 App 开发指南
+  tagline: 基于 HarmonyOS 4.0 的面试宝典 App 开发指南
   image:
     src: /logo.png
     alt: 背景图

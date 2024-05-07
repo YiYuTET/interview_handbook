@@ -24,21 +24,21 @@ export default defineConfig({
       {
         text: '面试手册 开发文档',
         items: [
-          { text: '面试手册APP-项目介绍', link: '/project/introduce' },
+          { text: '面试宝典APP-项目介绍', link: '/project/introduce' },
 		  
-		  { text: '面试手册APP-通用模块', link: '/project/common' },
+		  { text: '面试宝典APP-通用模块', link: '/project/common' },
 		  
-		  { text: '面试手册APP-开屏页面', link: '/project/welcome' },
+		  { text: '面试宝典APP-开屏页面', link: '/project/welcome' },
 		  
-          { text: '面试手册APP-首页模块', link: '/project/home' },
+          { text: '面试宝典APP-首页模块', link: '/project/home' },
 		  
-		  { text: '面试手册APP-项目模块', link: '/project/project' },
+		  { text: '面试宝典APP-项目模块', link: '/project/project' },
 		  
-		  { text: '面试手册APP-面经模块', link: '/project/interview' },
+		  { text: '面试宝典APP-面经模块', link: '/project/interview' },
 		  
-		  { text: '面试手册APP-我的模块', link: '/project/mine' },
+		  { text: '面试宝典APP-我的模块', link: '/project/mine' },
 		  
-		  { text: '面试手册APP-收藏点赞页面', link: '/project/favoriteandlikes' },
+		  { text: '面试宝典APP-收藏点赞页面', link: '/project/favoriteandlikes' },
 		  
         ]
       }
